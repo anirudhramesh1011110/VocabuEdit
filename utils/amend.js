@@ -43,8 +43,7 @@ function tagText(text) {
  * @param result: tagged array.
  */
 function mapArr(result) {
-  return new Promise((resolve, reject) => {
-    var arr = _.map(result, (i) => {
+    return Promise.all(_.map(result, (i) => {
       //Only does nouns.
       if(i[1] === 'N' || i[1] === 'NN') {
         Wutil.getSyn(i[0], 'n').then((res) =>{
@@ -60,9 +59,7 @@ function mapArr(result) {
       }else{
         return i[0];
       }
-    });
-    resolve(arr);
-  });
+    }));
 };
 
 tagText(str).then((result) => {
